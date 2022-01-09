@@ -1,0 +1,11 @@
+{
+    "languageClass": "kick",
+    "path": "successful_response",
+    "languageCode": "pt",
+    "contents":
+    {
+        "head": "Usuário `{user}` foi kickado ",
+        "reason_provided_body": "pelo motivo `{reason}`.",
+        "no_reason_provided_body": "sem nenhum motivo definido."
+    }
+}

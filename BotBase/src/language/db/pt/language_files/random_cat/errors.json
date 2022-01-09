@@ -1,0 +1,9 @@
+{
+    "languageClass": "random_cat",
+    "path": "errors",
+    "languageCode": "pt",
+    "contents":
+    {
+        "api_error": "Não foi possivel obter a imagem :(\ntente novamente mais tarde."
+    }
+}

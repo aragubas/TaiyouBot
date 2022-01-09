@@ -1,0 +1,10 @@
+{
+    "languageClass": "unban",
+    "path": "errors",
+    "languageCode": "pt",
+    "contents":
+    {
+        "ban_permission": ":warning: **Você prescisa de permissoes de banimento para desbanir um usuário.**",
+        "user_already_unbanned": ":warning: **Este usuário já foi desbanido ou não foi banido.**"
+    }
+}
