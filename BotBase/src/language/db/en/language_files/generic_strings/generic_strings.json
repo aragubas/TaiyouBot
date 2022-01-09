@@ -1,0 +1,9 @@
+{
+    "languageClass": "generic_strings",
+    "path": "strings",
+    "languageCode": "en",
+    "contents":
+    {
+        "hello": ":speaking_head: Hello!\nCurrently using language \"en\".\nIf that's not the language you set up this channel in, there's probably a missing language file, or the \"languageCode\" field is set incorrectly. "
+    }
+}

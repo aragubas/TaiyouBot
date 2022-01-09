@@ -6,6 +6,6 @@ import { unban } from "./Commands/unban";
 import { kick } from "./Commands/kick";
 import { ceira } from "./Commands/ceira";
 import { reverse_text } from "./Commands/reverse_text";
-
+import { hello } from "./Commands/hello";
  
-export const Commands: commandsList[] = [uuid, random_cat, ban, unban, kick, ceira, reverse_text]
+export const Commands: commandsList[] = [uuid, random_cat, ban, unban, kick, ceira, reverse_text, hello]
