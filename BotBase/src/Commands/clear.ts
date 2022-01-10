@@ -86,6 +86,7 @@ export const clear: Command = {
         // Gets the text channel to start bulk delete operation
         var textChannel: TextChannel = <TextChannel>interaction.channel
 
+        // AuthorID specified
         if (authorIdArg != null)
         {
             // Get all last 100 messages from author
@@ -106,10 +107,15 @@ export const clear: Command = {
                 }else
                 {
                     // Get the last X messages from user
-                    for(let i = 0; i < userMessages?.size - amountToDelete; i++)
+                    for(let i = 0; i < amountToDelete; i++)
                     {
-                        messagesToDelete.push(interaction.channel?.messages.cache.get(<string>userMessages.keyAt(i)))
+                        var newMessage = interaction.channel?.messages.cache.get(<string>userMessages.keyAt(i))
+                        
+                        // Filter undefined messages
+                        if (newMessage != undefined) { messagesToDelete.push(newMessage) }
                     }
+
+                    console.log(messagesToDelete)
                 }
                 
                 // If no messages has been found
