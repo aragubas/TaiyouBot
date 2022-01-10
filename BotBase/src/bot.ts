@@ -12,11 +12,13 @@ export const DataPath = path.resolve(__dirname, path.join("../", "data"))
 // Print initialization message
 utils.PrettyLog("Main", `Initialization\n` + 
                           `   | Data path set to: ${DataPath}`)
- 
+
+
+
 // Check if bot settings file exists
 if (!fs.existsSync(path.resolve(DataPath, "settings.json")))
 {
-    utils.PrettyLogError("Main", "Cannot find configuration file \"bot_settings.json\". Aborting...");
+    utils.PrettyLogError("Main", "Cannot find configuration file \"settings.json\". Aborting...");
     process.abort();
 }
  
