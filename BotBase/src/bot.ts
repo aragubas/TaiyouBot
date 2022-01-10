@@ -6,19 +6,22 @@ import interactionCreate from "./interactionCreate"
 import fs from "fs"
 import * as languageHandler from "./language"
 import BotSettings from "./BotSettings"
-import { stringToLanguageCode } from "./language/LanguageCode"
 
-utils.PrettyLog("bot.ts", "Initialization")
+export const DataPath = path.resolve(__dirname, path.join("../", "data"))
 
+// Print initialization message
+utils.PrettyLog("bot.ts", `Initialization.\n` + 
+                          `   | Data path set to: ${DataPath}`)
+ 
 // Check if bot settings file exists
-if (!fs.existsSync("./bot_settings.json"))
+if (!fs.existsSync(path.resolve(DataPath, "settings.json")))
 {
     utils.PrettyLogError("bot.ts", "Cannot find configuration file \"bot_settings.json\". Aborting...");
     process.abort();
 }
-
+ 
 // Load bot settings json
-export const botSettings: BotSettings = require(path.resolve(__dirname, "../bot_settings.json"))
+export const botSettings: BotSettings = require(path.resolve(DataPath, "settings.json"))
 
 // Create a new discord client
 const client = new Client({

@@ -1,8 +1,7 @@
-import LanguageCode, { languageCodeToString, stringToLanguageCode } from "./LanguageCode";
 import LanguageFile from "./LanguageFile";
-import * as LanguageIndex from "./db/"
 import * as utils from "../utils"
 import { botSettings } from "../bot";
+import { availableLanguageHandlers } from ".";
 
 /**
  * Class for implementing language support
@@ -12,7 +11,7 @@ export default class LanguageHandler
     /**
      * Language code (such as 'pt' or 'en')
      */
-    languageCode: LanguageCode | undefined = undefined;
+    languageCode: string = "";
     
     /**
      * Human readable name of target language
@@ -33,9 +32,9 @@ export default class LanguageHandler
      */
     registerLanguage()
     {
-        LanguageIndex.availableLanguageHandlers.push(this);
+        //LanguageIndex.availableLanguageHandlers.push(this);
          
-        if (stringToLanguageCode(botSettings.language) == this.languageCode) 
+        if (botSettings.language == this.languageCode) 
         {  
             this.isFallbackLanguage = true;
         }
@@ -65,14 +64,14 @@ export default class LanguageHandler
             // If this is the fallback language, throw an exception
             if (this.isFallbackLanguage)
             {
-                throw `Language string for class "${langClass}", path "${path}" and key ${key} has been not found for language '${languageCodeToString(<LanguageCode>this.languageCode)}'` 
+                throw `Language string for class "${langClass}", path "${path}" and key ${key} has been not found for language '${this.languageCode}'`
             }
 
             // Tries to find the string in the fallback language
             try
             {
                 // Find the fallback language handler
-                const fallbackLanguage: LanguageHandler | undefined = LanguageIndex.availableLanguageHandlers.find(handler => handler.isFallbackLanguage)
+                const fallbackLanguage: LanguageHandler | undefined = availableLanguageHandlers.find(handler => handler.isFallbackLanguage)
                 
                 // If fallback language was not found
                 if (fallbackLanguage == null)
@@ -83,15 +82,15 @@ export default class LanguageHandler
                 // Gets the new response string
                 const responseString = fallbackLanguage.get_string(langClass, path, key)
                 
-                utils.PrettyLogError(`LanguageHandler`, `Language string for class "${langClass}", path "${path}", and key "${key}" has been not found for language "${languageCodeToString(<LanguageCode>this.languageCode)}"\n    but found in Fallback language.`)
+                utils.PrettyLogWarn(`LanguageHandler`, `Language string for class "${langClass}", path "${path}", and key "${key}" has been not found for language "${this.languageCode}"\n    but found in fallback language.`)
                 
                 return responseString;
 
             }catch(err) // String not found in fallback language
             {
-                throw `Language string for class "${langClass}", path "${path}" and key "${key}" has been not found for language "${languageCodeToString(<LanguageCode>this.languageCode)}" and not found in Fallback Language.` 
+                throw `Language string for class "${langClass}", path "${path}" and key "${key}" has been not found for language "${this.languageCode}" and not found in Fallback Language.` 
             }
- 
+
         }
 
 

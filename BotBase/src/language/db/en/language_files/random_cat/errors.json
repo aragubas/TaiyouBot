@@ -1,9 +1,0 @@
-{
-    "languageClass": "random_cat",
-    "path": "errors",
-    "languageCode": "en",
-    "contents":
-    {
-        "api_error": "Could get a random image of a cat :(\nplease try again later."
-    }
-}

@@ -1,0 +1,10 @@
+{
+    "languageClass": "unban",
+    "path": "errors",
+    "languageCode": "en-US",
+    "contents":
+    {
+        "ban_permission": ":warning: **You need ban permissions to unban a user.**",
+        "user_already_unbanned": ":warning: **This user has been already unbanned or wasn't banned before.**"
+    }
+}

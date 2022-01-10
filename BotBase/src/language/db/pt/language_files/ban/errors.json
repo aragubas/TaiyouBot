@@ -1,9 +1,0 @@
-{
-    "languageClass": "ban",
-    "path": "errors",
-    "languageCode": "pt",
-    "contents":
-    {
-        "ban_yourself_error": ":speaking_head: **Você não pode banir ou kickar você mesmo, bobo**"
-    }
-}

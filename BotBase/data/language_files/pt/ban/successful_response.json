@@ -1,0 +1,11 @@
+{
+    "languageClass": "ban",
+    "path": "successful_response",
+    "languageCode": "pt-BR",
+    "contents":
+    {
+        "head": "Usuário `{user}` foi banido ",
+        "reason_provided_body": "pelo motivo `{reason}`.",
+        "no_reason_provided_body": "Sem nenhum motivo definido."
+    }
+}

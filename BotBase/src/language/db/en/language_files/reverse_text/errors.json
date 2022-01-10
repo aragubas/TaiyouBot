@@ -1,9 +1,0 @@
-{
-    "languageClass": "reverse_text",
-    "path": "errors",
-    "languageCode": "en",
-    "contents":
-    {
-        "text_too_small": ":warning: **Text is too small, it must be grather than 3 characters and not empty**"
-    }
-}

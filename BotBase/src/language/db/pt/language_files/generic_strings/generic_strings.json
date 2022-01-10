@@ -1,9 +1,0 @@
-{
-    "languageClass": "generic_strings",
-    "path": "strings",
-    "languageCode": "pt",
-    "contents":
-    {
-        "hello": ":speaking_head: Olá!\nAtualmente no idioma \"pt\"."
-    }
-}

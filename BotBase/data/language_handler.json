@@ -1,0 +1,14 @@
+{
+    "print_summary": false,
+    "language_handlers": [
+        
+        {
+            "name": "English",
+            "language_code": "en-US"
+        },
+        {
+            "name": "Português do Brasil",
+            "language_code": "pt-BR"
+        }
+    ]
+}

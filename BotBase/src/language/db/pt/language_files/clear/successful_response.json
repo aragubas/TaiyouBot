@@ -1,9 +1,0 @@
-{
-    "languageClass": "clear",
-    "path": "sucessful_response",
-    "languageCode": "en",
-    "contents":
-    {
-        "success": ":speaking_head: Apagado ``{count}`` mensagens."
-    }
-}

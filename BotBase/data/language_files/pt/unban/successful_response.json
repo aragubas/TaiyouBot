@@ -1,0 +1,9 @@
+{
+    "languageClass": "unban",
+    "path": "successful_response",
+    "languageCode": "pt-BR",
+    "contents":
+    {
+        "head": ":speaking_head: Usuário {user} foi desbanido."
+    }
+}
