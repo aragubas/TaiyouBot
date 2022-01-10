@@ -1,4 +1,4 @@
-import { Client, Intents, Message } from "discord.js"
+import { Client, DiscordAPIError, Intents, Message } from "discord.js"
 import path from "path"
 import * as utils from "./utils"
 import readyListener from "./listeners/ready"
@@ -10,13 +10,13 @@ import BotSettings from "./BotSettings"
 export const DataPath = path.resolve(__dirname, path.join("../", "data"))
 
 // Print initialization message
-utils.PrettyLog("bot.ts", `Initialization.\n` + 
+utils.PrettyLog("Main", `Initialization\n` + 
                           `   | Data path set to: ${DataPath}`)
  
 // Check if bot settings file exists
 if (!fs.existsSync(path.resolve(DataPath, "settings.json")))
 {
-    utils.PrettyLogError("bot.ts", "Cannot find configuration file \"bot_settings.json\". Aborting...");
+    utils.PrettyLogError("Main", "Cannot find configuration file \"bot_settings.json\". Aborting...");
     process.abort();
 }
  
@@ -41,20 +41,33 @@ async function initialize()
     
     if (botSettings.init_test_mode) 
     { 
-        utils.PrettyLog("bot.ts", "InitTestMode flag is enabled, no discord login will happen."); 
+        utils.PrettyLog("Main", "InitTestMode; no login will happen"); 
         return; 
     }
 
     try
     {
-        utils.PrettyLog("bot.ts", "Trying to log in into discord...")
+        utils.PrettyLog("Main", "Trying to log in into discord...")
 
         // Log in into discord
         await client.login(botSettings.token);
 
     } catch (e)
     {
-        utils.PrettyLogError("bot.ts ClientLogin", "No token or invalid token provided.");
+        var errorAny: any = e
+
+        if (errorAny.code == 500)
+        {
+            utils.PrettyLogFatalError("ClientLogin", "Login Error! Cannot connect to discord servers.");
+        }
+        
+        // Invalid token error
+        if (errorAny.code == "TOKEN_INVALID")
+        {
+            utils.PrettyLogFatalError("ClientLogin", "Login Error! No token or invalid token has been provided.");
+
+        }
+
         process.abort();
     }
     

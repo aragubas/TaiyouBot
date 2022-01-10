@@ -5,10 +5,10 @@ import { leafletInterpolater } from "../utils";
 
 export const clear: Command = {
     name: "clear",
-    description: "Clear the last \"X\" ammount messages",
+    description: "Clear the last \"X\" amount messages",
     options: [{
-        name: "ammount",
-        description: "Ammount of messages to delete (max of 100)",
+        name: "amount",
+        description: "Amount of messages to delete (max of 100)",
         type: "INTEGER",
         required: true
     },
@@ -44,7 +44,7 @@ export const clear: Command = {
         } 
         
         
-        var { value: ammountToDeleteArg } = interaction.options.data[0]        
+        var { value: amountToDeleteArg } = interaction.options.data[0]        
         var authorIdArg: any = null;
         
         // Optinal Argument
@@ -53,13 +53,16 @@ export const clear: Command = {
             authorIdArg = interaction.options.data[1].value;
         }
         
-        if (ammountToDeleteArg == null) { return }
-        var ammountToDelete: number = +ammountToDeleteArg
-        
-        if (ammountToDelete > 100) { ammountToDelete = 100; }
+        if (amountToDeleteArg == null) { return }
+        var amountToDelete: number = +amountToDeleteArg
 
+        if (amountToDelete > 100) { amountToDelete = 100; }
+        var searchLimit = amountToDelete
+
+        if (authorIdArg != null) { searchLimit = 100; }
+ 
         var messages = await interaction.channel?.messages.fetch({
-            limit: ammountToDelete,
+            limit: searchLimit,
         })
         
         // Check if channel type is valid
@@ -78,13 +81,60 @@ export const clear: Command = {
         }
  
         // Delete message from user
+        var filtredMessages = messages
+
+        // Gets the text channel to start bulk delete operation
+        var textChannel: TextChannel = <TextChannel>interaction.channel
+
         if (authorIdArg != null)
         {
-            var filtredMessages: Collection<string, Message<boolean>> | undefined = messages?.filter(m => m.author.id == authorIdArg)
+            // Get all last 100 messages from author
+            var userMessages: Collection<string, Message<boolean>> | undefined = messages?.filter(m => m.author.id == authorIdArg)
+            
+            if (userMessages != undefined)
+            {
+                var messagesToDelete = new Array;
+                
+                // If the amount of messages to delete is the same as the total amount of messages
+                if (amountToDelete == userMessages.size)
+                {
+                    // Add all messages to messagesToDelete list
+                    userMessages.forEach(msg => {
+                        messagesToDelete.push(msg)
+                    });
+                    
+                }else
+                {
+                    // Get the last X messages from user
+                    for(let i = 0; i < userMessages?.size - amountToDelete; i++)
+                    {
+                        messagesToDelete.push(interaction.channel?.messages.cache.get(<string>userMessages.keyAt(i)))
+                    }
+                }
+                
+                // If no messages has been found
+                if (messagesToDelete.length == 0)
+                {
+                    await interaction.reply({
+                        ephemeral: true,
+                        content: getString(interaction.channelId, "generic_errors", "errors", "no_message_found")
+                    });        
         
-        }else // Delete all messages
-        {
-            var filtredMessages = messages
+                    return;        
+                }
+
+                // Wait until all messages has been deleted
+                await textChannel.sendTyping();
+                await textChannel.bulkDelete(messagesToDelete, true);
+ 
+                // Reply with success
+                await interaction.reply({
+                    ephemeral: false,
+                    content: leafletInterpolater(getString(interaction.channelId, "clear", "sucessful_response", "success_user_delete"), { count: messagesToDelete.length, user: `<@${authorIdArg}>` })
+                });        
+                
+                return
+            }
         }
         
         // if no message has been found
@@ -92,23 +142,20 @@ export const clear: Command = {
         {
             await interaction.reply({
                 ephemeral: true,
-                content: getString(interaction.channelId, "clear", "errors", "no_message_found")
+                content: getString(interaction.channelId, "generic_errors", "errors", "no_message_found")
             });        
 
             return;
         }
-        
-        // Gets the text channel to start bulk delete operation
-        var textChannel: TextChannel = <TextChannel>interaction.channel
-        
+                
         // Wait until all messages has been deleted
         await textChannel.sendTyping();
         await textChannel.bulkDelete(filtredMessages, true);
-        
+
         // Reply with success
         await interaction.reply({
             ephemeral: false,
-            content: leafletInterpolater(getString(interaction.channelId, "clear", "sucessful_response", "success"), { count: ammountToDeleteArg })
+            content: leafletInterpolater(getString(interaction.channelId, "clear", "sucessful_response", "success"), { count: filtredMessages.size })
         });        
         
     }

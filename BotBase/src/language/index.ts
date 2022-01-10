@@ -71,6 +71,12 @@ export function initialize()
         utils.PrettyLog("LanguageHandler", `Parsed language handler for \"${langClass.name}\"`)
     });
 
+    /*
+        ========
+        = Load language files
+        ========
+    */
+
     // List all json files in the language_files folder inside data path    
     glob.sync(`${path.join(DataPath, "language_files")}/**/*.json`).forEach((file) => {
         const jsonFileRelativePath: any = ".\\" + path.relative(__dirname, file)

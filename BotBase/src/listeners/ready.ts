@@ -8,20 +8,19 @@ export default (client: Client): void =>
     {
         if (client.user == null) 
         { 
-            utils.PrettyLogError("bot.ts AuthenticationChecks", "Incorrect token or no token provided."); 
+            utils.PrettyLogFatalError("AuthCheck", "Could not determine the user."); 
             process.abort(); 
         }
     
         if (!client.user.bot)
         {
-            utils.PrettyLogError("bot.ts AuthenticationChecks", "Invalid token, logged in a user and not as a bot."); 
+            utils.PrettyLogFatalError("AuthCheck", "Invalid token, logged in a user and not as a bot."); 
             process.abort(); 
         }
         
         await client.application?.commands.set(Commands)
 
-        utils.PrettyLog("bot.ts AuthenticationChecks", "Everything seems to be fine. Authentication Check Complete")
-        utils.PrettyLog("bot.ts AuthenticationChecks", `Authenticated as "${client.user.username}#${client.user.discriminator}"`)
+        utils.PrettyLog("AuthCheck", `Logged in as "${client.user.username}#${client.user.discriminator}"`)
     
     })
 

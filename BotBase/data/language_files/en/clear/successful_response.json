@@ -4,6 +4,7 @@
     "languageCode": "en-US",
     "contents":
     {
-        "success": ":speaking_head: Deleted ``{count}`` messages."
+        "success": ":speaking_head: Deleted ``{count}`` messages.\nDiscord doesn't allow to delete older messages, so the count may be wrong.",
+        "success_user_delete": ":speaking_head: Deleted ``{count}`` messages from user {user}\nDiscord doesn't allow to delete older messages, so the count may be wrong."
     }
 }

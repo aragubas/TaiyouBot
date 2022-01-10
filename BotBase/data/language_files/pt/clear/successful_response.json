@@ -1,9 +1,10 @@
 {
     "languageClass": "clear",
     "path": "sucessful_response",
-    "languageCode": "en-US",
+    "languageCode": "pt-BR",
     "contents":
     {
-        "success": ":speaking_head: Apagado ``{count}`` mensagens."
+        "success": ":speaking_head: Apagado ``{count}`` mensagens.\nDiscord não permite apagar mensagens muito antigas, então a contagem pode estar errada.",
+        "success_user_delete": ":speaking_head: Apagado ``{count}`` mensagens do usuario {user}.\nDiscord não permite apagar mensagens muito antigas, então a contagem pode estar errada."
     }
 }
