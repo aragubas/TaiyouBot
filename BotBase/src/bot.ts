@@ -13,7 +13,12 @@ export const DataPath = path.resolve(__dirname, path.join("../", "data"))
 utils.PrettyLog("Main", `Initialization\n` + 
                           `   | Data path set to: ${DataPath}`)
 
-
+// Check if data folder exists
+if (!fs.existsSync(DataPath))
+{
+    utils.PrettyLogError("Main", `Cannot find data path. \"${DataPath}\"\n Aborting...`);
+    process.abort();
+}
 
 // Check if bot settings file exists
 if (!fs.existsSync(path.resolve(DataPath, "settings.json")))

@@ -1,0 +1,10 @@
+{
+    "languageClass": "ping",
+    "path": "pong",
+    "languageCode": "en-US",
+    "contents":
+    {
+        "pong": ":ping_pong: Pong! with a response time of ``{response_time}ms``",
+        "error": ":rage: Could not determine the response time."
+    }
+}

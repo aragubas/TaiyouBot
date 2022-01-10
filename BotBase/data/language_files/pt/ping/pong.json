@@ -1,0 +1,10 @@
+{
+    "languageClass": "ping",
+    "path": "pong",
+    "languageCode": "pt-BR",
+    "contents":
+    {
+        "pong": ":ping_pong: Pong! com um tempo de resposta ``{response_time}milisegundo``",
+        "error": ":rage: Não foi possivel determinar o tempo re resposta."
+    }
+}
