@@ -1,0 +1,9 @@
+{
+    "languageClass": "clear",
+    "path": "sucessful_response",
+    "languageCode": "en",
+    "contents":
+    {
+        "success": ":speaking_head: Deleted ``{count}`` messages."
+    }
+}

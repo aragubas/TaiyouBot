@@ -57,10 +57,10 @@ export default class LanguageHandler
     get_string(langClass: string, path: string, key: string): string | undefined
     {
         const langFile: LanguageFile | undefined = this.files.find(pth => pth.languageClass == langClass.toLowerCase() && pth.path == path.toLowerCase());
-        
+        const returnString = langFile?.contents[key]
 
         // If language class was not found
-        if (langFile == undefined) 
+        if (langFile == undefined || returnString == undefined) 
         { 
             // If this is the fallback language, throw an exception
             if (this.isFallbackLanguage)
@@ -71,16 +71,19 @@ export default class LanguageHandler
             // Tries to find the string in the fallback language
             try
             {
+                // Find the fallback language handler
                 const fallbackLanguage: LanguageHandler | undefined = LanguageIndex.availableLanguageHandlers.find(handler => handler.isFallbackLanguage)
-
+                
+                // If fallback language was not found
                 if (fallbackLanguage == null)
                 {
                     throw `No fallback language has been found. Configuration may be incorrect; please conside checking language property at "bot_settings.json"` 
                 }
-                                
+                
+                // Gets the new response string
                 const responseString = fallbackLanguage.get_string(langClass, path, key)
                 
-                utils.PrettyLogError(`LanguageHandler`, `Language string for class "${langClass}", path ${path}, and key "${key}" has been not found for language "${languageCodeToString(<LanguageCode>this.languageCode)}"\n    but found in Fallback language.`)
+                utils.PrettyLogError(`LanguageHandler`, `Language string for class "${langClass}", path "${path}", and key "${key}" has been not found for language "${languageCodeToString(<LanguageCode>this.languageCode)}"\n    but found in Fallback language.`)
                 
                 return responseString;
 
@@ -91,7 +94,9 @@ export default class LanguageHandler
  
         }
 
-        return langFile?.contents[key]
+
+
+        return returnString
     }   
 
 }

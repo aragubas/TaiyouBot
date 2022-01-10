@@ -1,0 +1,14 @@
+{
+    "languageClass": "generic_errors",
+    "path": "errors",
+    "languageCode": "pt",
+    "contents":
+    {
+        "kick_permission": ":lock: **Você não tem permissão para kickar membros**",
+        "ban_permission": ":lock: **Você não tem permissão para banir membros**",
+        "manage_messages_permission": ":lock: **Você não tem permissão para gerenciar mensagens.**",
+        "user_not_found": ":rage: **Usuário não encontrado.**",
+        "internal_error": ":warning: Erro Interno! por favor informe \"Aragubas#3594\" sobre este erro e tente novamente mais tarde.\n\n`{error}`",
+        "invalid_channel": ":angry: Você não pode rodar esse comando neste canal."
+    }
+}

@@ -9,7 +9,6 @@ export const ceira: Command = {
     description: "Ceira sinas ceira sinas",
     run: async (client: Client, interaction: BaseCommandInteraction) =>
     {
-
         await interaction.reply({
             ephemeral: false,
             content: getString(interaction.channelId, "sinas", "ceira", "ceira")

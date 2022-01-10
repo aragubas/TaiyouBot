@@ -1,4 +1,4 @@
-import { Client, Message } from "discord.js"
+import { Client, Intents, Message } from "discord.js"
 import path from "path"
 import * as utils from "./utils"
 import readyListener from "./listeners/ready"
@@ -22,7 +22,8 @@ export const botSettings: BotSettings = require(path.resolve(__dirname, "../bot_
 
 // Create a new discord client
 const client = new Client({
-    intents: []    
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+
 })
 
 // Set up listeners 

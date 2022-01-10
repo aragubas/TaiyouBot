@@ -24,4 +24,5 @@ export default (client: Client): void =>
         utils.PrettyLog("bot.ts AuthenticationChecks", `Authenticated as "${client.user.username}#${client.user.discriminator}"`)
     
     })
+
 }
