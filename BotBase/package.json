@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --clear ./src/bot.ts",
-    "build": "tsc --outDir ./build"
+    "run": "ts-node-dev --clear ./src/bot.ts"
   },
   "keywords": [],
   "author": "Aragubas",
