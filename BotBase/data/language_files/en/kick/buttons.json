@@ -1,9 +1,0 @@
-{
-    "languageClass": "kick",
-    "path": "buttons",
-    "languageCode": "en-US",
-    "contents":
-    {
-        "head": "Are you sure you want to kick `{user}`?"
-    }
-}

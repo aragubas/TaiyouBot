@@ -1,0 +1,10 @@
+{
+    "languageClass": "ban",
+    "path": "question",
+    "languageCode": "en-US",
+    "contents":
+    {
+        "ban": ":speaking_head: Are you sure you want to **ban** `{user}`?",
+        "ban_with_reason": ":speaking_head: Are you sure you want to **ban** `{user}` with reason `{reason}`?"
+    }
+}

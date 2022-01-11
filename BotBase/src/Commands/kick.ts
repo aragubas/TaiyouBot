@@ -77,7 +77,7 @@ export const kick: Command = {
             return
         }
 
-        // Check if bot has permission to ban members
+        // Check if bot has permission to kick members
         if (!interaction.guild.me?.permissions.has("KICK_MEMBERS")) 
         {  
             await interaction.reply({
@@ -175,22 +175,9 @@ export const kick: Command = {
                 ceiraCollector.stop()
             })
 
-            ceiraCollector.on("dispose", async (inter) => {
-                // Disable button after someone clicks it
-                row.components[0].setDisabled(true);
-                row.components[1].setDisabled(true);
-
-                await inter.deferUpdate()
-
-                await inter.editReply({
-                    content: getString(interaction.channelId, "generic_sucessful", "generic_sucessful", "operation_canceled"),
-                    components: [row]
-                })                    
-            
-            })
-
         }
         else{
+            // If user was not found
             await interaction.reply({
                 ephemeral: true,
                 content: getString(interaction.channelId, "generic_errors", "errors", "user_not_found")
