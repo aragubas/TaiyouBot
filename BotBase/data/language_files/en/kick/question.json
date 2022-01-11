@@ -1,0 +1,10 @@
+{
+    "languageClass": "kick",
+    "path": "question",
+    "languageCode": "en-US",
+    "contents":
+    {
+        "kick": "Are you sure you want to kick `{user}`?",
+        "kick_with_reason": "Are you sure you want to kick `{user}` with reason `{reason}`?"
+    }
+}

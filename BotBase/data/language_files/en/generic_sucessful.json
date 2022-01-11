@@ -1,0 +1,9 @@
+{
+    "languageClass": "generic_sucessful",
+    "path": "generic_sucessful",
+    "languageCode": "en-US",
+    "contents":
+    {
+        "operation_canceled": ":speaking_head: This operation has been canceled."
+    }
+}
