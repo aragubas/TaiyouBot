@@ -48,7 +48,7 @@ export const kick: Command = {
         let kickReason = "";
 
         // Check if user is not trying to run this interaction from DM
-        if (interaction.channel == null)
+        if (interaction.channel == null || interaction.guild == null)
         {
             await interaction.reply({
                 ephemeral: true,
@@ -76,6 +76,17 @@ export const kick: Command = {
             });
             return
         }
+
+        // Check if bot has permission to ban members
+        if (!interaction.guild.me?.permissions.has("KICK_MEMBERS")) 
+        {  
+            await interaction.reply({
+                ephemeral: true,
+                content: getString(interaction.channelId, "generic_errors", "errors", "self_kick_permission")
+            });
+            return
+        }
+
         
         // If ban reason was provided, set ban reason to the provided ban reason
         if (interaction.options.data[1] != undefined) { kickReason = interaction.options.data[1].value as string }
@@ -86,26 +97,24 @@ export const kick: Command = {
         // If user has been found
         if (userToKick != null)
         {
-            const row = new MessageActionRow()
-
-            // Set up the confirm button
             const confirmButtonID = randomUUID()
-            const confirmButton = new MessageButton()
-            .setLabel(getString(interaction.channelId, "generic_buttons", "buttons", "yes"))
-            .setStyle("PRIMARY")
-            .setCustomId(confirmButtonID)
-            
-            // Set up the cancel button
             const cancelButtonID = randomUUID()
-            
-            // Set up cancel button
-            const cancelButton = new MessageButton()
-                .setLabel(getString(interaction.channelId, "generic_buttons", "buttons", "no"))
-                .setStyle("DANGER")
-                .setCustomId(cancelButtonID)
-            
-            // Add components
-            row.addComponents(confirmButton, cancelButton)
+            const interactionOwnerID = interaction.user.id;
+
+            // Create the message row
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setLabel(getString(interaction.channelId, "generic_buttons", "buttons", "yes"))
+                        .setStyle("DANGER")
+                        .setCustomId(confirmButtonID),
+                    
+                    new MessageButton()
+                        .setLabel(getString(interaction.channelId, "generic_buttons", "buttons", "no"))
+                        .setStyle("SECONDARY")
+                        .setCustomId(cancelButtonID)
+                            
+                )
             
             // Sends question message
             await interaction.reply({
@@ -116,15 +125,29 @@ export const kick: Command = {
 
             // Listen to button presses
             var ceiraCollector = interaction.channel.createMessageComponentCollector({
-                filter: (i => i.customId == confirmButtonID || i.customId == cancelButtonID && i.user.id == interaction.user.id), 
+                filter: (i => (i.customId == confirmButtonID || i.customId == cancelButtonID)), 
                 time: 15000
             })
 
             // When button has been pressed
-            ceiraCollector.on("collect", async (inter) => {
-                // Disable button after someone clicks it
+            ceiraCollector.on("collect", async (inter) => {       
+                
+                // Check if user is the owner of this interaction
+                if (inter.user.id != interactionOwnerID)
+                {
+                    await inter.reply({
+                        content: getString(interaction.channelId, "generic_errors", "errors", "interaction_access_denied"),
+                        ephemeral: true
+                    })
+                    
+                    return
+                }
+                
+                // Disable button after the owner clicks on it
                 row.components[0].setDisabled(true);
                 row.components[1].setDisabled(true);
+                
+                // Defer update
                 await inter.deferUpdate()
 
                 // Confirm; Kick user
@@ -133,23 +156,37 @@ export const kick: Command = {
                     // Gets the response message
                     const returnContent = await doKick(client, interaction, userToKick, kickReason);
                     
-                    inter.editReply({
+                    await inter.editReply({
                         content: returnContent,
                         components: [row]
                     })
-                } 
-                // Sends "operation canceled" message
-                inter.editReply({
-                    content: getString(interaction.channelId, "generic_sucessful", "generic_sucessful", "operation_canceled"),
-                    components: [row]
-                })
+
+                }
+                else // Invalid or cancel operation
+                {
+                    // Sends "operation canceled" message
+                    await inter.editReply({
+                        content: getString(interaction.channelId, "generic_sucessful", "generic_sucessful", "operation_canceled"),
+                        components: [row]
+                    })                    
+                }
                 
                 // Stops this collector
                 ceiraCollector.stop()
             })
 
-            ceiraCollector.on("end", async (ceir) => {
-                row.components[0].disabled = true;
+            ceiraCollector.on("dispose", async (inter) => {
+                // Disable button after someone clicks it
+                row.components[0].setDisabled(true);
+                row.components[1].setDisabled(true);
+
+                await inter.deferUpdate()
+
+                await inter.editReply({
+                    content: getString(interaction.channelId, "generic_sucessful", "generic_sucessful", "operation_canceled"),
+                    components: [row]
+                })                    
+            
             })
 
         }

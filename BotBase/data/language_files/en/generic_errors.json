@@ -6,12 +6,15 @@
     {
         "kick_permission": ":lock: **You don't have permission to kick members.**",
         "ban_permission": ":lock: **You don't have permission to ban members.**",
+        "self_ban_permission": ":rage: :lock: **I don't have permission to ban members.**",
+        "self_kick_permission": ":rage: :lock: **I don't have permission to kick members.**",
         "manage_messages_permission": ":lock: **You don't have permission to manage messages.**",
         "user_not_found": ":rage: **User not found.**",
         "internal_error": ":warning: Internal Error! please contact \"Aragubas#3594\" about this error and try again later.\n\n`{error}`",
         "invalid_channel": ":angry: You can't run this command on this channel.",
         "dm_not_allowed": ":rage: Este comando não pode ser utilizado nas mensagens diretas.",
-        "no_message_found": ":rage: Nenhuma mensagem encontrada."
-
+        "no_message_found": ":rage: Nenhuma mensagem encontrada.",
+        "action_timed_out": ":speaking_head: This action has timed out.",
+        "interaction_access_denied": ":lock: **You are not the owner of this interaction.**"
     }
 }
