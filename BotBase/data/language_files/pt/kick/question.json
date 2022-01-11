@@ -1,0 +1,10 @@
+{
+    "languageClass": "kick",
+    "path": "question",
+    "languageCode": "pt-BR",
+    "contents":
+    {
+        "kick": ":speaking_head: Você tem certeza que deseja kickar `{user}`?",
+        "kick_with_reason": ":speaking_head: Você tem certeza que deseja kickar `{user}` com razão `{reason}`?"
+    }
+}

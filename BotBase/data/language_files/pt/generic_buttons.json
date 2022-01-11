@@ -1,0 +1,11 @@
+{
+    "languageClass": "generic_buttons",
+    "path": "buttons",
+    "languageCode": "pt-BR",
+    "contents":
+    {
+        "yes": "Sim",
+        "no": "Não",
+        "cancel": "Cancelar"
+    }
+}
